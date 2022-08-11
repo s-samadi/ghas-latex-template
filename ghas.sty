@@ -1,0 +1,192 @@
+% silence warnings
+\usepackage{silence}
+
+% package imports
+\usepackage[english]{babel}
+\usepackage[outline]{contour}
+\usepackage[style=british]{csquotes}
+
+\usepackage{pgfkeys}
+
+\usepackage{fontsize}
+
+\usepackage{fancyhdr}
+\usepackage{tocloft}
+
+\usepackage{amssymb}
+\usepackage[margin=1.0in]{geometry}
+\usepackage{graphicx}
+\usepackage[hidelinks]{hyperref}
+\usepackage[outputdir=target]{minted}
+
+\usepackage[table]{xcolor}
+\usepackage{tabularx}
+\usepackage{makecell}
+
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage{setspace}
+
+\usepackage{tikz}
+
+\usepackage{fmtcount}
+
+
+% package configuration
+
+% reference settings
+\usepackage[
+  backend=biber,
+  maxbibnames=99,
+  refsection=chapter,
+  sorting=nyt,
+  style=ieee,
+]{biblatex}
+
+% image settings
+\graphicspath{ {./img/} }
+
+% general formatting
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+
+% tikz settings
+\usetikzlibrary{arrows, arrows.meta, positioning, shadows}
+\contourlength{1.5pt}
+
+% table of contents formatting
+\renewcommand\cftsecleader{\cftdotfill{\cftdotsep}}
+
+% custom color definitions
+\definecolor{Gray}{gray}{0.85}
+\definecolor{commentgreen}{RGB}{2,112,10}
+
+% source code formatting
+\lstset{
+  basicstyle=\ttfamily,
+  captionpos=t,
+  commentstyle=\color{red},
+  frame=tb,
+  keywordstyle=\color{blue},
+}
+
+\lstdefinelanguage
+  [x86]{Assembler}     % add a custom dialect of Assembler
+  [x86masm]{Assembler} % based on the "x86masm" dialect
+  % with these extra keywords:
+  {
+    morekeywords={MOVSBL,MOVZBL},
+  }
+
+\lstdefinestyle{x86-disassembly}{
+  basicstyle=\small\ttfamily,
+  captionpos=t,
+  commentstyle=\color{commentgreen}\bfseries,
+  frame=tb,
+  keywordstyle=[2],
+  language={[x86]Assembler},
+}
+
+% document metadata
+\newcommand{\insertauthor}{\@author}
+\newcommand{\inserttitle}{\@title}
+
+\hypersetup{
+  colorlinks=false,
+  pdftitle={\inserttitle},
+  pdfauthor={\insertauthor}
+}
+
+% <cfg-use-case>
+
+% use case formatting
+\newcounter{usecaseid}
+\renewcommand{\theusecaseid}{UC\padzeroes[2]{\decimal{usecaseid}}}
+
+% define table structure for the basic flow within a use case
+\newcolumntype{s}{>{\bfseries\columncolor{Gray}} p{3cm}}
+\newlist{basicflowlist}{enumerate}{1}
+\setlist[basicflowlist]{after=\strut, label*=\arabic*., labelindent=0pt, leftmargin=*, itemsep=0pt, parsep=2pt}
+
+\pgfkeys{
+  /ghas/.cd,
+  id/.store in = \ucId,
+  title/.store in = \ucTitle,
+  description/.store in = \ucDescription,
+  actors/.store in = \ucActors,
+  preconditions/.store in = \ucPreconditions,
+  postconditions/.store in = \ucPostconditions,
+  basicFlow/.store in = \ucBasicFlow,
+  alternateFlow/.store in = \ucAlternateFlow,
+}
+
+\newcommand{\usecase}[1]{
+  \pgfkeys{
+    /ghas/.cd,
+    id = {},
+    title = {},
+    description = {},
+    actors = {},
+    preconditions = {},
+    postconditions = {},
+    basicFlow = {},
+    alternateFlow = { },
+    #1
+  }
+  \begin{tabularx}{\textwidth}{|l|>{\raggedright\arraybackslash}X|}
+    \hline
+    \rowcolor{Gray}
+    \multicolumn{2}{|l|}{\textbf{Overview}}
+    \\
+    \hline
+    ID
+    & \ucId
+    \\
+    \hline
+    Title
+    & \ucTitle
+    \\
+    \hline
+    Description
+    & \ucDescription 
+    \\
+    \hline
+    Actors
+    & \ucActors
+    \\
+    \hline
+    Preconditions
+    & \ucPreconditions
+    \\
+    \hline
+    Post Conditions
+    & \ucPostconditions
+    \\
+    \hline
+    \rowcolor{Gray}
+    \multicolumn{2}{|l|}{\textbf{Basic Flow}}
+    \\
+    \hline
+    \multicolumn{2}{|p{\dimexpr\columnwidth-2\tabcolsep}|}{%
+      \begin{minipage}{\linewidth}
+        \begin{basicflowlist}
+          \ucBasicFlow
+        \end{basicflowlist}
+      \end{minipage}
+    }
+    \\
+    \hline
+    \rowcolor{Gray}
+    \multicolumn{2}{|l|}{\textbf{Alternate Flow(s)}}
+    \\
+    \hline
+    \multicolumn{2}{|p{\dimexpr\columnwidth-2\tabcolsep}|}{
+      \ucAlternateFlow
+    }
+    \\
+    \hline
+  \end{tabularx}
+}
+
+% </cfg-use-case>

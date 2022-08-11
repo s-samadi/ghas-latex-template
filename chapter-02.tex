@@ -1,0 +1,61 @@
+
+\chapter{Application Code Security}
+
+\section{System Definition}
+
+This is a link \cite{devsecops}.
+
+Code Scanning can be divided into the following use cases
+
+\refstepcounter{usecaseid}
+\usecase{%
+  id             = {\theusecaseid},
+  title          = {Code Scanning Alert Triage},
+  description    = {%
+      As a commiter with write access to \textit{reponame}, I want to be able to remediate alerts on my pull request
+    },
+  actors         = {Developer},
+  preconditions  = {%
+      Pull request must be raised and code scanning complete.
+    },
+  postconditions = {%
+      All alerts on PR are resolved.
+    },
+  basicFlow      = {
+      \item The user is notified of alerts
+      \item The user remediates alert by pushing in a fix to the Pull Request
+      \item This triggers the code scanning action
+      \item The alert is resolved
+    },
+  alternateFlow  = {
+      The user is notified of alerts
+      The user dismisses alert as false positive
+      The alert is resolved
+    }
+}
+
+\section{Vulnerability Discovery}
+\label{sec:vuln-disco}
+
+\lipsum[1-2]
+
+% @formatter:off
+\begin{minted}{c}
+#include <stdio.h>
+
+int main(void) {
+    printf("Hello World!");
+    return 0;
+  }
+\end{minted}
+% @formatter:on
+
+
+\lipsum[1-2]
+
+\section{Exploitation}
+\section{References}
+\printbibliography[heading=none]
+
+
+
