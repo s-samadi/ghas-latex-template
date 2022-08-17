@@ -1,8 +1,8 @@
 \begin{tikzpicture}
 	\fill[fill=black] (0,0) -- (0, 29.68cm) -- (14.57cm, 29.68cm) -- (20.98cm, 9.80cm) -- (20.98cm, 0) -- cycle;
 	\fill[fill=gray,] (14.57cm, 29.68cm) -- (20.98cm, 29.68cm) -- (20.98cm, 9.80cm) -- cycle;
-	\node[] at (19cm, 27.75cm) {\includegraphics[width=1.75cm]{github-logo-white}};
 	\node[color=white, text width=15cm] at (10cm, 22.5cm) {\textbf{\huge{GitHub Advanced Security:}}\\\vspace{7.5mm}\textbf{\huge{\inserttitle}}};
-	\node[] at (10.5cm, 10.5cm) {\includegraphics[width=10cm]{femalecodertocat}};
+	\node[color=white, text width=15cm] at (10.0cm, 18cm) {\textbf{\huge{Version 1.0}}};
+	\node[] at (10.5cm, 10.5cm) {\includegraphics[width=10cm]{github-logo-white}};	
 	\node[color=white] at (17.25cm, 1.5cm) {\textbf{\huge{\insertauthor}}};
 \end{tikzpicture}

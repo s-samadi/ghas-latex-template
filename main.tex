@@ -12,11 +12,13 @@
 \begin{document}
 \input{title}
 
-
 \pagestyle{fancy}
+\fancyhf{}
+\fancyhead[RO,RE]{\leftmark}
 
 % center of footer
-\fancyfoot[CE]{\textcolor{gray}{GitHub Advanced Security}}
+\fancyfoot[CO,CE]{\textcolor{gray}{GitHub Advanced Security - Professional Services }}
+\fancyfoot[LO,LE]{\textcolor{gray}{\thepage}}
 
 \pagenumbering{gobble}
 \setcounter{tocdepth}{1}
@@ -27,4 +29,9 @@
 \input{chapter-01}
 \input{chapter-02}
 \input{chapter-03}
+\appendix
+\renewcommand{\chaptername}{Appendix}
+\fancyhead[RO,RE]{\chaptername\space\thechapter}
+\input{chapter-01-appendix}
 \end{document}
+
